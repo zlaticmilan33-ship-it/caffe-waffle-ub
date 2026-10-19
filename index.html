@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caffe Waffle Ub — kafe i vafli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+  body { margin: 0; font-family: 'Work Sans', system-ui, sans-serif; background: #FFFFFF; }
+  a { color: #D98B4F; text-decoration: none; }
+  a:hover { color: #B96C33; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; margin: 0; }
+  * { box-sizing: border-box; }
+  .hamburger-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; align-items: center; justify-content: center; }
+  @media (max-width: 430px) {
+    .nav-links a[href^="tel:"] { padding: 10px 14px !important; font-size: 13px !important; }
+  }
+
+  @media (max-width: 1050px) {
+    .nav-optional { display: none !important; }
+    .hamburger-btn { display: flex !important; }
+    .nav-links { gap: 16px !important; }
+  }
+
+  @media (max-width: 900px) {
+    .menu-pad { padding: 28px !important; }
+    .menu-grid { column-gap: 24px !important; }
+  }
+  @media (max-width: 430px) {
+    .menu-pad { padding: 22px 20px !important; }
+  }
+
+  @media (max-width: 900px) {
+    .about-grid { gap: 24px !important; }
+  }
+  @media (max-width: 600px) {
+    .about-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  }
+
+  @media (max-width: 1000px) {
+    .reviews-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    .reviews-grid > div { grid-column: span 2 !important; }
+    .reviews-grid > div:nth-child(3) { grid-column: 2 / span 2 !important; }
+  }
+  @media (max-width: 600px) {
+    .reviews-grid { grid-template-columns: 1fr !important; }
+    .reviews-grid > div, .reviews-grid > div:nth-child(3) { grid-column: auto !important; }
+  }
+
+  /* Responsive: tablet ~768px and mobile ~375-390px */
+  @media (max-width: 900px) {
+    .section, .nav-bar, .footer-bar, .hero-wrap { padding-left: 40px !important; padding-right: 40px !important; }
+    .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .grid-4 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    .hero-wrap h1 { font-size: 46px !important; }
+    .gallery-feature { height: 340px !important; }
+  }
+
+  @media (max-width: 430px) {
+    .section, .nav-bar, .footer-bar, .hero-wrap { padding-left: 20px !important; padding-right: 20px !important; }
+    .hero-wrap { flex-direction: column !important; padding-top: 24px !important; padding-bottom: 56px !important; gap: 28px !important; }
+    .hero-text { align-items: flex-start !important; }
+    .hero-image { width: 100% !important; height: 240px !important; flex: none !important; }
+    .hero-wrap h1 { font-size: 32px !important; }
+    .grid-3 { grid-template-columns: 1fr !important; }
+    .grid-2 { grid-template-columns: 1fr !important; }
+    .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .gallery-feature { height: 220px !important; }
+    .kontakt-grid { flex-direction: column !important; gap: 32px !important; }
+    h2 { font-size: 26px !important; }
+    .footer-bar { flex-direction: column !important; gap: 16px !important; align-items: flex-start !important; }
+  }
+  #mobile-menu:not(.open) { display: none !important; }
+</style>
+</head>
+<body>
+<div style="width: 100%; color: #241E17; line-height: 1.55; background: #FFFFFF;">
+
+  <!-- NAV -->
+  <div class="nav-bar" style="position: sticky; top: 0; z-index: 10; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 24px 72px; background: rgba(255,255,255,0.92); border-bottom: 1px solid #F1E9DE;">
+    <div style="font-family: 'Fraunces', Georgia, serif; font-size: 24px; font-weight: 600; letter-spacing: 0.3px; white-space: nowrap; flex-shrink: 0;">Caffe Waffle</div>
+    <div class="nav-links" style="display: flex; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <a href="#galerija" class="nav-optional" style="color: #241E17; font-size: 15px; font-weight: 500; white-space: nowrap;">Galerija</a>
+      <a href="#recenzije" class="nav-optional" style="color: #241E17; font-size: 15px; font-weight: 500; white-space: nowrap;">Recenzije</a>
+      <a href="#pitanja" class="nav-optional" style="color: #241E17; font-size: 15px; font-weight: 500; white-space: nowrap;">Pitanja</a>
+      <a href="#meni" class="nav-optional" style="color: #241E17; font-size: 15px; font-weight: 500; white-space: nowrap;">Meni</a>
+      <a href="#kontakt" class="nav-optional" style="color: #241E17; font-size: 15px; font-weight: 500; white-space: nowrap;">Kontakt</a>
+      
+      <a href="tel:0658962317" style="background: #D98B4F; color: #FFFCF8; padding: 11px 24px; border-radius: 999px; font-size: 14px; font-weight: 600; white-space: nowrap;">065 8962 317</a>
+    </div>
+    <button type="button" class="hamburger-btn" onclick="toggleMenu()" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Meni">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#241E17" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </div>
+
+  
+    <div id="mobile-menu" style="width: 100%; background: #FFFFFF; border-bottom: 1px solid #F1E9DE; display: flex; flex-direction: column; padding: 8px 20px 20px;">
+      <a href="#galerija" onclick="closeMenu()" style="color: #241E17; font-size: 17px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid #F1E9DE;">Galerija</a>
+      <a href="#recenzije" onclick="closeMenu()" style="color: #241E17; font-size: 17px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid #F1E9DE;">Recenzije</a>
+      <a href="#pitanja" onclick="closeMenu()" style="color: #241E17; font-size: 17px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid #F1E9DE;">Pitanja</a>
+      <a href="#meni" onclick="closeMenu()" style="color: #241E17; font-size: 17px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid #F1E9DE;">Meni</a>
+      <a href="#kontakt" onclick="closeMenu()" style="color: #241E17; font-size: 17px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid #F1E9DE;">Kontakt</a>
+      
+      <a href="tel:0658962317" onclick="closeMenu()" style="margin-top: 16px; background: #D98B4F; color: #FFFCF8; padding: 13px 24px; border-radius: 999px; font-size: 15px; font-weight: 600; text-align: center;">Pozovi: 065 8962 317</a>
+    </div>
+  
+
+  <!-- HERO -->
+  <div class="hero-wrap" style="width: 100%; display: flex; align-items: center; gap: 80px; padding: 128px 72px 112px;">
+    <div class="hero-text" style="flex: 1; display: flex; flex-direction: column; gap: 28px; align-items: flex-start;">
+      <div style="font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #D98B4F;">Caffe &amp; Waffle Bar — Ub</div>
+      <h1 style="font-size: 60px; font-weight: 600; color: #241E17; letter-spacing: -0.5px;">Sveži vafli,<br>dobra kafa,<br>vedar predah.</h1>
+      <div style="font-size: 18px; color: #6E6355; max-width: 460px;">Caffe Waffle je mesto u srcu Uba gde se topli belgijski vafli i pažljivo spremljena kafa spajaju u pravi mali predah od dana.</div>
+      <div style="display: flex; gap: 16px; margin-top: 12px;">
+        <a href="#meni" style="background: #241E17; color: #FFFCF8; padding: 15px 30px; border-radius: 999px; font-size: 15px; font-weight: 600;">Pogledaj meni</a>
+        <a href="tel:0658962317" style="border: 1.5px solid #241E17; color: #241E17; padding: 15px 30px; border-radius: 999px; font-size: 15px; font-weight: 600;">Pozovi nas</a>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+        <div style="display: flex; gap: 2px; color: #D98B4F;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+        </div>
+        <div style="font-size: 14px; color: #6E6355;"><span style="font-weight: 600; color: #241E17;">5,00</span> na Google-u · 34 recenzije</div>
+      </div>
+    </div>
+    <div class="hero-image" style="flex: 1.1; display: flex; align-items: center; justify-content: center; height: 560px; border-radius: 32px; overflow: hidden;">
+      <img src="images/01-vafla-sa-svezim-vocem.jpg" alt="Vafla sa svežim voćem" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+  </div>
+
+  <!-- O NAMA -->
+  <div id="o-nama" class="section" style="width: 100%; padding: 40px 72px 84px; display: flex; flex-direction: column; gap: 64px; align-items: center; text-align: center;">
+    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 620px; align-items: center;">
+      <h2 style="font-size: 36px; font-weight: 600;">O nama</h2>
+      <div style="font-size: 17px; color: #6E6355;">Verujemo da dobar dan počinje toplim vaflom i šoljom dobre kafe. Svaki vafl se peče sveže po narudžbini, a kafu spremamo sa pažnjom — bilo da svraćate na brzu pauzu ili da ostanete duže uz razgovor.</div>
+    </div>
+    <div class="about-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; width: 100%; max-width: 960px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
+        <div style="font-family: 'Fraunces', Georgia, serif; font-size: 19px; font-weight: 600;">Sveže pečeno</div>
+        <div style="font-size: 14px; color: #6E6355;">Svaka vafla se peče po narudžbini, nikad unapred.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
+        <div style="font-family: 'Fraunces', Georgia, serif; font-size: 19px; font-weight: 600;">Pažljivo pripremljena kafa</div>
+        <div style="font-size: 14px; color: #6E6355;">Pažljivo pripremljeni espresso napici, svaki dan.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
+        <div style="font-family: 'Fraunces', Georgia, serif; font-size: 19px; font-weight: 600;">Vedra atmosfera</div>
+        <div style="font-size: 14px; color: #6E6355;">Svetao prostor za kratku pauzu ili duže druženje.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALERIJA -->
+  <div id="galerija" class="section" style="width: 100%; padding: 0 72px 90px; display: flex; flex-direction: column; gap: 24px; align-items: center;">
+    <h2 style="font-size: 36px; font-weight: 600; text-align: center;">Iz naše kuhinje</h2>
+    <div style="display: flex; flex-direction: column; gap: 24px; width: 100%; max-width: 1100px;">
+      <div class="gallery-feature" style="height: 460px; border-radius: 28px; overflow: hidden;">
+        <img loading="lazy" src="images/02-waffle-vaflice-na-stapicu-tri-vrste.jpg" alt="Waffle vaflice na štapiću, tri vrste" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="grid-4" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;">
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/03-cheesecake-sa-jagodama-i-belom-cokoladom.jpg" alt="Cheesecake sa jagodama i belom čokoladom" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/04-vafla-sa-nutellom-i-mrvicama.jpg" alt="Vafla sa Nutellom i mrvicama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/05-tiramisu-i-vocni-kolaci.jpg" alt="Tiramisu i voćni kolači" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/06-cheesecake-sa-malinama.jpg" alt="Cheesecake sa malinama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/07-izlog-lokala-caffe-waffle.jpg" alt="Izlog lokala Caffe Waffle" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/08-waffle-vaflica-na-stapicu-sa-cokoladom.jpg" alt="Waffle vaflica na štapiću sa čokoladom" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/09-vafle-na-stapicu-sa-cokoladom-i-sarenim.jpg" alt="Vafle na štapiću sa čokoladom i šarenim mrvicama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/10-vafla-sa-bananom-i-malinama.jpg" alt="Vafla sa bananom i malinama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/11-pancake-toranj-sa-bananom-i-nutellom.jpg" alt="Pancake toranj sa bananom i Nutellom" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/12-pancake-toranj-sa-sladoledom-i-malinama.jpg" alt="Pancake toranj sa sladoledom i malinama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/13-pancake-toranj-sa-belom-kremom-i-keksom.jpg" alt="Pancake toranj sa belom kremom i keksom" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/14-pancake-toranj-sa-kokosom-i-bobicastim-v.jpg" alt="Pancake toranj sa kokosom i bobičastim voćem" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/15-enterijer-sa-zutim-stolicama.jpg" alt="Enterijer sa žutim stolicama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/16-kapucino-i-dezert-na-terasi.jpg" alt="Kapućino i dezert na terasi" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/17-pancake-toranj-sa-cokoladnim-sladoledom.jpg" alt="Pancake toranj sa čokoladnim sladoledom i višnjama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/18-vafla-i-pancake-toranj-sa-bananom.jpg" alt="Vafla i pancake toranj sa bananom" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="height: 220px; border-radius: 24px; overflow: hidden;">
+          <img loading="lazy" src="images/19-pancake-toranj-sa-kikiriki-puterom-i-mal.jpg" alt="Pancake toranj sa kikiriki puterom i malinama" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENZIJE -->
+  <div id="recenzije" class="section" style="width: 100%; padding: 0 72px 90px; display: flex; flex-direction: column; gap: 48px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center;">
+      <h2 style="font-size: 36px; font-weight: 600;">Šta kažu naši gosti</h2>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="display: flex; gap: 2px; color: #D98B4F;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+        </div>
+        <div style="font-size: 14px; color: #6E6355;">5,00 na Google-u · 34 recenzije</div>
+      </div>
+    </div>
+    <div class="reviews-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; width: 100%; max-width: 1100px;">
+
+      <div style="background: #FDFBF8; border: 1px solid #F1E9DE; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; gap: 2px; color: #D98B4F;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+        </div>
+        <div style="font-size: 15px; color: #241E17; flex-grow: 1;">„Ako tražite dobre palačinke i vafle, naći ćete ih ovde 😍 A kafa je neverovatna"</div>
+        <div style="font-size: 14px; font-weight: 600; color: #6E6355;">Milica Živanović</div>
+      </div>
+
+      <div style="background: #FDFBF8; border: 1px solid #F1E9DE; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; gap: 2px; color: #D98B4F;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+        </div>
+        <div style="font-size: 15px; color: #241E17; flex-grow: 1;">„Odlične obične i američke palačinke, lepo nafilovane, ne štedi se na sastojcima. Cene veoma pristupačne, osoblje ljubazno, brza usluga. Za ljubitelje palačinki, najbolje mesto na Ubu."</div>
+        <div style="font-size: 14px; font-weight: 600; color: #6E6355;">Nikola T.</div>
+      </div>
+
+      <div style="background: #FDFBF8; border: 1px solid #F1E9DE; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; gap: 2px; color: #D98B4F;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"></path></svg>
+        </div>
+        <div style="font-size: 15px; color: #241E17; flex-grow: 1;">„Šta god da odlučite da probate, nećete pogrešiti. Hrana je ukusna i sveža, osoblje je ljubazno, a mesto je ukusno uređeno."</div>
+        <div style="font-size: 14px; font-weight: 600; color: #6E6355;">Ana Postić</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MENI -->
+  <div id="meni" class="section" style="width: 100%; padding: 0 72px 90px; display: flex; flex-direction: column; gap: 56px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center;">
+      <h2 style="font-size: 36px; font-weight: 600;">Meni</h2>
+      <div style="font-size: 15px; color: #6E6355;">Okvirne cene — meni se povremeno menja.</div>
+    </div>
+    <div style="width: 100%; max-width: 1100px; background: #FDFBF8; border: 1px solid #F1E9DE; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="height: 200px;">
+        <img loading="lazy" src="images/20-vafla-sa-pistaci-kremom-i-malinama.jpg" alt="Vafla sa pistaći kremom i malinama" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="menu-pad" style="padding: 40px; display: flex; flex-direction: column; gap: 14px;">
+        <h3 style="font-size: 21px; font-weight: 600; color: #D98B4F;">Waffle</h3>
+        <div class="grid-2 menu-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px;">
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Dubai waffle</span><span style="font-weight: 600; white-space: nowrap;">450 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">pistać krem, kadaif, nutela, sladoled</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Klasik waffle</span><span style="font-weight: 600; white-space: nowrap;">300 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">euro krem, plazma, toping po izboru</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Ferero waffle</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">ferero krem, kinder krem, čokoladne perlice, sladoled</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Nutela waffle</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">nutela krem, jagoda/malina, banana</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Kikiriki waffle</span><span style="font-weight: 600; white-space: nowrap;">340 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">kikiriki puter, nutela krem, banana, crna čokolada</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Kinder waffle</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">kinder krem, čokoladne perlice, komadići lešnika, sladoled</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Rafaelo waffle</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">rafaelo krem, kokos rolnice, vanila sladoled, komadići lešnika</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Pistać waffle</span><span style="font-weight: 600; white-space: nowrap;">420 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">pistać krem, maline, sladoled, komadići pistaća, mlečni krem</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Banana waffle</span><span style="font-weight: 600; white-space: nowrap;">380 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">euro krem, banana, plazma u mleku, šlag</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">M&amp;M waffle</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">kinder krem, nutela, m&amp;m bombonice, sladoled</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Švarcvald waffle</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">nutela krem, plazma, višnje, šlag</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Voćni waffle</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">crveno voće, med, komadići oraha</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Waffle štapić</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">nutela, bombonice, crna čokolada</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Sendvič waffle</span><span style="font-weight: 600; white-space: nowrap;">300 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">slani waffle, šunka, kačkavalj, paradajz, zelena salata</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Pršuta rukola waffle</span><span style="font-weight: 600; white-space: nowrap;">380 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">slani waffle, dva jaja na oko, sir, pršuta, rukola</div></div>
+          <div style="padding: 10px 0;"><div style="display: flex; justify-content: space-between; gap: 12px;"><span style="font-weight: 600;">Pečenica waffle</span><span style="font-weight: 600; white-space: nowrap;">340 din</span></div><div style="font-size: 15px; line-height: 1.4; color: #B79A78;">slani waffle, pečenica, kačkavalj, prilozi</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 100%; max-width: 1100px; background: #FDFBF8; border: 1px solid #F1E9DE; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="height: 200px;">
+        <img loading="lazy" src="images/11-pancake-toranj-sa-bananom-i-nutellom.jpg" alt="Palačinke sa Nutellom i bananom" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="menu-pad" style="padding: 40px; display: flex; flex-direction: column; gap: 36px;">
+        <h3 style="font-size: 21px; font-weight: 600; color: #D98B4F;">Palačinke</h3>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px;">Slatke palačinke</div>
+          <div class="grid-2 menu-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>1. Dubai crna — nutela, pistać krem, kadaif, sladoled, pistaći</span><span style="font-weight: 600; white-space: nowrap;">460 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>2. Dubai bela — mlečni krem, pistać krem, kadaif, sladoled, pistaći</span><span style="font-weight: 600; white-space: nowrap;">460 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>3. Eurokrem, plazma</span><span style="font-weight: 600; white-space: nowrap;">280 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>4. Euro krem, banana, plazma, šlag</span><span style="font-weight: 600; white-space: nowrap;">350 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>5. Džem, orasi</span><span style="font-weight: 600; white-space: nowrap;">250 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>6. Nutela, plazma</span><span style="font-weight: 600; white-space: nowrap;">350 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>7. Nutela, kinder krem, maline/višnje, plazma</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>8. Nutela, maline, oreo keks</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>9. Nutela, vanila krem, maline/jagode</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>10. Nutela, pistać krem, maline</span><span style="font-weight: 600; white-space: nowrap;">420 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>11. Nutela, višnje, plazma, šlag</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>12. Pistać krem, mlečni krem, maline</span><span style="font-weight: 600; white-space: nowrap;">420 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>13. Mlečni krem, malina nadev, plazma</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>14. Ferero krem, kinder krem, lešnik, plazma</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>15. Ferero krem, mlečni krem, plazma u mleku, čokoladne perlice</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px;">Američke palačinke</div>
+          <div class="grid-2 menu-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>1. Nutela, pistać krem, banana/malina, sladoled</span><span style="font-weight: 600; white-space: nowrap;">450 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>2. Nutela, kikiriki puter, banana, crna čokolada</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>3. Eurokrem, malina nadev, plazma</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>4. Mlečni krem, šumsko voće, sladoled, kokos</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>5. Kinder krem, nutela, višnje, sladoled, plazma</span><span style="font-weight: 600; white-space: nowrap;">420 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>6. Nutela krem, malina, oreo keks</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>7. Euro krem, banana/višnja, plazma</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>8. Ferero krem, kinder krem, plazma u mleku, čokoladne perlice</span><span style="font-weight: 600; white-space: nowrap;">420 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>9. Lotus krem, nutela, maline, plazma</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>10. Vanila krem, nutela krem, jagode</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>11. Mlečni krem, malina nadev, plazma u mleku</span><span style="font-weight: 600; white-space: nowrap;">360 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>12. Borovnice, šumsko voće, med, orasi</span><span style="font-weight: 600; white-space: nowrap;">380 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>13. Nutela krem, pomorandža nadev, plazma</span><span style="font-weight: 600; white-space: nowrap;">380 din</span></div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px; background: #FBEFE3; border-radius: 20px; padding: 24px;">
+          <div style="font-size: 14px; font-weight: 600; color: #D98B4F; text-transform: uppercase; letter-spacing: 0.4px;">Novo u ponudi</div>
+          <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 32px;">
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>Čiz malina</span><span style="font-weight: 600; white-space: nowrap;">420 din</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>Čiz pistać</span><span style="font-weight: 600; white-space: nowrap;">450 din</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>Jafa</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>M&amp;M</span><span style="font-weight: 600; white-space: nowrap;">390 din</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>Kinder jagoda</span><span style="font-weight: 600; white-space: nowrap;">450 din</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>Kapri</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>Višnja oreo</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0;"><span>Rafaelo</span><span style="font-weight: 600; white-space: nowrap;">400 din</span></div>
+          </div>
+        </div>
+
+        <div class="grid-2 menu-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px;">
+          <div style="display: flex; flex-direction: column; gap: 0;">
+            <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 11px;">Posne</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Čokoladni krem, keks</span><span style="font-weight: 600; white-space: nowrap;">300 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Čokoladni krem, pomorandža, keks</span><span style="font-weight: 600; white-space: nowrap;">350 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Čokoladni krem, voće, keks</span><span style="font-weight: 600; white-space: nowrap;">350 din</span></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0;">
+            <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 11px;">Slane</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Šunka, kačkavalj, pavlaka</span><span style="font-weight: 600; white-space: nowrap;">320 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Šunka, kačkavalj, pavlaka, šampinjoni, kečap</span><span style="font-weight: 600; white-space: nowrap;">370 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Pečenica, kačkavalj, pavlaka, kečap</span><span style="font-weight: 600; white-space: nowrap;">350 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Kulen, kačkavalj, pavlaka</span><span style="font-weight: 600; white-space: nowrap;">340 din</span></div>
+          </div>
+        </div>
+
+        <div style="font-size: 13px; color: #B79A78; padding-top: 8px; border-top: 1px solid #F1E9DE;">Dodaci: kugla sladoleda 70 din · šlag 50 din · voće 70 din · plazma keks 50 din · plazma u mleku 70 din</div>
+      </div>
+    </div>
+
+    <div style="width: 100%; max-width: 1100px; background: #FDFBF8; border: 1px solid #F1E9DE; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="height: 200px;">
+        <img loading="lazy" src="images/21-ledena-kafa.jpg" alt="Ledena kafa" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="menu-pad" style="padding: 40px; display: flex; flex-direction: column; gap: 36px;">
+        <h3 style="font-size: 21px; font-weight: 600; color: #D98B4F;">Kafa &amp; napici</h3>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px;">Kafa i topli napici</div>
+          <div class="grid-2 menu-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Espresso kafa</span><span style="font-weight: 600; white-space: nowrap;">140 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Espresso sa mlekom</span><span style="font-weight: 600; white-space: nowrap;">170 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Dupli espresso</span><span style="font-weight: 600; white-space: nowrap;">240 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Cappuccino</span><span style="font-weight: 600; white-space: nowrap;">170 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Affogato</span><span style="font-weight: 600; white-space: nowrap;">250 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Caffe latte</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Mocca kaffa</span><span style="font-weight: 600; white-space: nowrap;">200 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Iced coffee</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Domaća kafa</span><span style="font-weight: 600; white-space: nowrap;">120 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Nes kafa</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Plazma šejk</span><span style="font-weight: 600; white-space: nowrap;">330 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Topla čokolada</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Čaj</span><span style="font-weight: 600; white-space: nowrap;">120 din</span></div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px;">Sokovi</div>
+          <div class="grid-2 menu-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Coca Cola</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Coca Cola zero</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Fanta</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Negazirani sokovi</span><span style="font-weight: 600; white-space: nowrap;">200 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Limunada</span><span style="font-weight: 600; white-space: nowrap;">180 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Cedevita</span><span style="font-weight: 600; white-space: nowrap;">190 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Ceđena pomorandža</span><span style="font-weight: 600; white-space: nowrap;">300 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 7px 0; line-height: 1.4;"><span>Ceđeni mix</span><span style="font-weight: 600; white-space: nowrap;">330 din</span></div>
+          </div>
+        </div>
+
+        <div class="grid-2 menu-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px;">
+          <div style="display: flex; flex-direction: column; gap: 0;">
+            <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 11px;">Voda</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Rosa negazirana</span><span style="font-weight: 600; white-space: nowrap;">150 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Rosa gazirana</span><span style="font-weight: 600; white-space: nowrap;">150 din</span></div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0;">
+            <div style="font-size: 14px; font-weight: 600; color: #6E6355; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 11px;">Pivo</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Birra Moretti 0,3</span><span style="font-weight: 600; white-space: nowrap;">240 din</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; line-height: 1.4;"><span>Blanc 0,3</span><span style="font-weight: 600; white-space: nowrap;">250 din</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div id="pitanja" class="section" style="width: 100%; padding: 0 72px 128px; display: flex; flex-direction: column; gap: 48px; align-items: center;">
+    <h2 style="font-size: 36px; font-weight: 600; text-align: center;">Česta pitanja</h2>
+    <div style="display: flex; flex-direction: column; gap: 24px; width: 100%; max-width: 720px;">
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 8px;">
+        <div style="font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 600;">Da li se vafle prave sveže po porudžbini?</div>
+        <div style="font-size: 15px; color: #6E6355;">Da, svaka vafla se peče sveže nakon što je poručite, nikad unapred.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 8px;">
+        <div style="font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 600;">Koje je radno vreme?</div>
+        <div style="font-size: 15px; color: #6E6355;">Radnim danima 10:00–22:00, a vikendom (subota i nedelja) 12:00–22:00.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 8px;">
+        <div style="font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 600;">Gde se tačno nalazite?</div>
+        <div style="font-size: 15px; color: #6E6355;">Na adresi Kralja Petra I Oslobodioca 46, 14210 Ub. <a href="https://www.google.com/maps/place/Caffe+Waffle/@44.4567659,20.0748451,17z/data=!3m1!4b1!4m6!3m5!1s0x475a1f00235da6a3:0xfdb6a74d9e3a3c5f!8m2!3d44.4567659!4d20.0748451!16s%2Fg%2F11y54fwbtm">Otvori u Google mapama</a>.</div>
+      </div>
+
+      <!-- PRIVREMENO SKRIVENO (tri pitanja bez potvrđenih odgovora). Za povratak: u renderVals postaviti showPendingFaq: true -->
+      
+
+    </div>
+  </div>
+
+  <!-- KONTAKT / RADNO VREME -->
+  <div id="kontakt" class="section kontakt-grid" style="width: 100%; padding: 0 72px 64px; display: flex; gap: 64px;">
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 28px;">
+      <h2 style="font-size: 34px; font-weight: 600;">Radno vreme</h2>
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 360px;">
+        <div style="display: flex; justify-content: space-between; padding-bottom: 12px;"><span style="color: #6E6355;">Ponedeljak – Petak</span><span style="font-weight: 600;">10:00 – 22:00</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #6E6355;">Subota – Nedelja</span><span style="font-weight: 600;">12:00 – 22:00</span></div>
+      </div>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 28px;">
+      <h2 style="font-size: 34px; font-weight: 600;">Kontakt</h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <div style="font-size: 13px; color: #B79A78; text-transform: uppercase; letter-spacing: 0.5px;">Adresa</div>
+          <a href="https://www.google.com/maps/place/Caffe+Waffle/@44.4567659,20.0748451,17z/data=!3m1!4b1!4m6!3m5!1s0x475a1f00235da6a3:0xfdb6a74d9e3a3c5f!8m2!3d44.4567659!4d20.0748451!16s%2Fg%2F11y54fwbtm" style="font-size: 17px; font-weight: 500; color: #241E17;">Kralja Petra I Oslobodioca 46, 14210 Ub</a>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: #B79A78; text-transform: uppercase; letter-spacing: 0.5px;">Telefon</div>
+          <a href="tel:0658962317" style="font-size: 17px; font-weight: 500; color: #241E17;">065 8962 317</a>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: #B79A78; text-transform: uppercase; letter-spacing: 0.5px;">Email</div>
+          <a href="mailto:caffewaffleub@gmail.com" style="font-size: 17px; font-weight: 500; color: #241E17;">caffewaffleub@gmail.com</a>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: #B79A78; text-transform: uppercase; letter-spacing: 0.5px;">Instagram</div>
+          <a href="https://instagram.com/caffe.waffleub/" style="font-size: 17px; font-weight: 500; color: #241E17;">@caffe.waffleub</a>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: #B79A78; text-transform: uppercase; letter-spacing: 0.5px;">Facebook</div>
+          <a href="https://facebook.com/profile.php?id=61560648966631&amp;locale=sr_RS" style="font-size: 17px; font-weight: 500; color: #241E17;">Caffe Waffle Ub</a>
+        </div>
+      </div>
+      <a href="https://www.google.com/maps/place/Caffe+Waffle/@44.4567659,20.0748451,17z/data=!3m1!4b1!4m6!3m5!1s0x475a1f00235da6a3:0xfdb6a74d9e3a3c5f!8m2!3d44.4567659!4d20.0748451!16s%2Fg%2F11y54fwbtm" style="height: 200px; background: #FBEFE3; border-radius: 28px; display: flex; align-items: center; justify-content: center; color: #B79A78; font-size: 14px; font-weight: 600;">Otvori lokaciju u Google mapama</a>
+    </div>
+  </div>
+
+  <!-- PRIVREMENO SKRIVENO: kontakt forma. Za povratak: showContactForm: true -->
+  
+
+  <!-- FOOTER -->
+  <div class="footer-bar" style="width: 100%; padding: 32px 72px; border-top: 1px solid #F1E9DE; display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 28px;">
+      <div style="font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 600;">Caffe Waffle</div>
+      <!-- PRIVREMENO SKRIVENO: link ka politici privatnosti. Za povratak: showPolicyLink: true -->
+      
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <a href="https://facebook.com/profile.php?id=61560648966631&amp;locale=sr_RS" aria-label="Facebook" style="display: flex; align-items: center; color: #241E17;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"></path></svg>
+      </a>
+      <a href="https://instagram.com/caffe.waffleub/" aria-label="Instagram" style="display: flex; align-items: center; color: #241E17;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+      </a>
+      <div style="font-size: 13px; color: #B79A78;">© 2026 Caffe Waffle Ub. Sva prava zadržana.</div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- POLICY MODAL -->
+<script>
+function toggleMenu(){var m=document.getElementById('mobile-menu'),b=document.getElementById('menu-btn');var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');}
+function closeMenu(){var m=document.getElementById('mobile-menu'),b=document.getElementById('menu-btn');m.classList.remove('open');b.setAttribute('aria-expanded','false');}
+</script>
+</body>
+</html>
